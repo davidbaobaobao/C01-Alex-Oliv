@@ -5,6 +5,7 @@ import Skills from '@/components/Skills'
 import Experience from '@/components/Experience'
 import Education from '@/components/Education'
 import Languages from '@/components/Languages'
+import Publications from '@/components/Publications'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 
@@ -19,6 +20,7 @@ export default function Page() {
         <Experience />
         <Education />
         <Languages />
+        <Publications />
         <Contact />
       </main>
       <Footer />

@@ -46,7 +46,7 @@ export default function Contact() {
     <section id="contacto" className="relative border-b border-black">
       <div className="grid grid-cols-12 items-end px-4 md:px-8 pt-20 md:pt-28 pb-6">
         <div className="col-span-12 md:col-span-3 mb-4 md:mb-0">
-          <div className="label-tech text-black/60 mb-2">Sección 06</div>
+          <div className="label-tech text-black/60 mb-2">Sección 07</div>
           <div className="font-mono-tech text-[12px] uppercase tracking-[0.22em] text-black/70">
             Iniciar contacto
           </div>

@@ -11,7 +11,8 @@ const SECTIONS = [
   { id: 'experiencia', label: 'Experiencia', num: '03' },
   { id: 'formacion', label: 'Formación', num: '04' },
   { id: 'idiomas', label: 'Idiomas', num: '05' },
-  { id: 'contacto', label: 'Contacto', num: '06' },
+  { id: 'publicaciones', label: 'Publicaciones', num: '06' },
+  { id: 'contacto', label: 'Contacto', num: '07' },
 ]
 
 const sectionIds = SECTIONS.map((s) => s.id)
