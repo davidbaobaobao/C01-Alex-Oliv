@@ -11,14 +11,7 @@ interface Service {
 
 function parseItems(description: string | null): string[] {
   if (!description) return []
-  try {
-    const parsed = JSON.parse(description)
-    if (Array.isArray(parsed)) return parsed.map(String).filter(Boolean)
-  } catch {}
-  return description
-    .split('\n')
-    .map((line) => line.replace(/^[-•*]\s*/, '').trim())
-    .filter(Boolean)
+  return description.split(' · ').map((s) => s.trim()).filter(Boolean)
 }
 
 function SkillCell({ skill, index }: { skill: Service; index: number }) {

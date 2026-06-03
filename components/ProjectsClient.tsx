@@ -114,12 +114,12 @@ function ProjectRow({
 function EmptyProjectCard() {
   return (
     <div className="border-b border-black py-20 px-4 md:px-8 flex flex-col items-center justify-center text-center gap-4">
-      <div className="label-tech text-black/40">Proyectos en preparación</div>
+      <div className="label-tech text-black/40">Sección 05 / Proyectos</div>
       <div className="font-display text-4xl md:text-6xl uppercase tracking-tight text-black/20">
-        Próximamente
+        Próximos proyectos
       </div>
       <p className="font-mono-tech text-[12px] uppercase tracking-[0.18em] text-black/40 max-w-[40ch]">
-        Àlex está preparando los casos de estudio. Contacta para ver trabajos recientes.
+        En construcción.
       </p>
     </div>
   )
