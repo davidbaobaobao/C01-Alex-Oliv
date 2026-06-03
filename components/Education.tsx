@@ -1,16 +1,19 @@
-import { supabase } from '@/lib/supabase'
+import { getSupabase } from '@/lib/supabase'
 import SectionHeader from './SectionHeader'
 import EducationClient from './EducationClient'
 
 export const revalidate = 60
 
 export default async function Education() {
-  const { data } = await supabase
-    .from('faqs')
-    .select('*')
-    .eq('client_id', process.env.NEXT_PUBLIC_CLIENT_ID)
-    .eq('visible', true)
-    .order('sort_order', { ascending: true })
+  const sb = getSupabase()
+  const { data } = sb
+    ? await sb
+        .from('faqs')
+        .select('*')
+        .eq('client_id', process.env.NEXT_PUBLIC_CLIENT_ID)
+        .eq('visible', true)
+        .order('sort_order', { ascending: true })
+    : { data: null }
 
   if (!data || data.length === 0) return null
 
