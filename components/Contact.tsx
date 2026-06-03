@@ -7,7 +7,9 @@ import Link from 'next/link'
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', body: '', rgpd: false })
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
+  const [serverError, setServerError] = useState('')
 
   const validate = () => {
     const e: Record<string, string> = {}
@@ -20,14 +22,29 @@ export default function Contact() {
     return e
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const e = validate()
     setErrors(e)
     if (Object.keys(e).length > 0) return
-    setSent(true)
-    const subject = encodeURIComponent(`Consulta — ${form.name || 'Sin nombre'}`)
-    const body = encodeURIComponent(`${form.body}\n\n— ${form.name}\n${form.email}`)
-    window.location.href = `mailto:web@alexoliveras.cat?subject=${subject}&body=${body}`
+    setSending(true)
+    setServerError('')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: form.name, email: form.email, message: form.body }),
+      })
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        setServerError(data.error ?? 'Error al enviar el mensaje.')
+      } else {
+        setSent(true)
+      }
+    } catch {
+      setServerError('Error de red — inténtalo de nuevo.')
+    } finally {
+      setSending(false)
+    }
   }
 
   const handleChange = (field: keyof typeof form) => (
@@ -172,6 +189,12 @@ export default function Contact() {
               )}
             </div>
 
+            {serverError && (
+              <p className="font-mono-tech text-[10px] uppercase tracking-[0.18em] text-[#FF3B30]">
+                {serverError}
+              </p>
+            )}
+
             <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 pt-2">
               <div className="font-mono-tech text-[10px] uppercase tracking-[0.22em] text-black/55 max-w-[40ch]">
                 Al enviar, aceptas un intercambio puntual por email. Sin seguimiento, sin listas.
@@ -179,9 +202,12 @@ export default function Contact() {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="invert-hover border border-black px-6 py-4 font-mono-tech text-[11px] uppercase tracking-[0.22em] inline-flex items-center justify-between gap-6 min-w-[220px] focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+                disabled={sending || sent}
+                className="invert-hover border border-black px-6 py-4 font-mono-tech text-[11px] uppercase tracking-[0.22em] inline-flex items-center justify-between gap-6 min-w-[220px] focus:outline-none focus-visible:ring-2 focus-visible:ring-black disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span>{sent ? 'Enviado — cliente de correo abierto' : 'Enviar mensaje'}</span>
+                <span>
+                  {sent ? 'Mensaje enviado ✓' : sending ? 'Enviando…' : 'Enviar mensaje'}
+                </span>
                 <span aria-hidden>→</span>
               </button>
             </div>
