@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useActiveSection } from '@/hooks/useActiveSection'
 
@@ -59,7 +59,7 @@ export default function Nav() {
 
         <nav
           aria-label="Navegación principal"
-          className="hidden md:flex col-span-7 items-center gap-6 font-mono-tech text-[12px] tracking-[0.18em] uppercase"
+          className="hidden md:flex col-span-7 xl:col-span-8 items-center gap-3 xl:gap-5 overflow-hidden font-mono-tech text-[12px] tracking-[0.18em] uppercase"
         >
           {SECTIONS.slice(1).map((s) => {
             const isActive = active === s.id
@@ -68,16 +68,16 @@ export default function Nav() {
                 key={s.id}
                 href={`#${s.id}`}
                 aria-current={isActive ? 'true' : undefined}
-                className="group relative inline-flex items-center gap-2 py-1"
+                className="group relative shrink-0 inline-flex items-center gap-1.5 xl:gap-2 py-1"
               >
                 <span
-                  className={`w-1.5 h-1.5 ${
+                  className={`w-1.5 h-1.5 shrink-0 ${
                     isActive ? 'bg-[#FF3B30]' : 'bg-transparent border border-black/40'
                   } transition-colors`}
                 />
-                <span className="opacity-50 mr-0.5">{s.num}</span>
+                <span className="opacity-50">{s.num}</span>
                 <span
-                  className={`${
+                  className={`hidden xl:inline ${
                     isActive ? 'text-black' : 'text-black/60 group-hover:text-black'
                   } transition-colors`}
                 >
@@ -88,9 +88,9 @@ export default function Nav() {
           })}
         </nav>
 
-        <div className="hidden md:flex col-span-3 items-center justify-end gap-3 font-mono-tech text-[11px] tracking-[0.18em] uppercase">
-          <span className="opacity-50">{time}</span>
-          <span className="hairline w-6 h-px" />
+        <div className="hidden md:flex col-span-3 xl:col-span-2 items-center justify-end gap-3 font-mono-tech text-[11px] tracking-[0.18em] uppercase">
+          <span className="hidden xl:inline opacity-50">{time}</span>
+          <span className="hidden xl:inline hairline w-6 h-px" />
           <span className="inline-flex items-center gap-2">
             <span className="signal-dot w-2 h-2 bg-[#FF3B30]" aria-hidden="true" />
             Disponible
