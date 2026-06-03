@@ -164,18 +164,12 @@ export default function Publications() {
         </div>
 
         {/* Links */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 border-t border-l border-black">
+        <div className="mt-12 border-t border-l border-black">
           <PubLink
             href="https://vbn.aau.dk/en/publications/characterisation-and-modelling-of-measured-massive-mimo-channels"
             label="Tesis Doctoral"
             value="Aalborg University — VBN"
             sub="Characterisation and Modelling of Measured Massive MIMO Channels"
-          />
-          <PubLink
-            href="https://www.linkedin.com/in/alex-oliveras-martinez"
-            label="LinkedIn"
-            value="Àlex Oliveras Martínez"
-            sub="Perfil profesional completo"
           />
         </div>
       </div>

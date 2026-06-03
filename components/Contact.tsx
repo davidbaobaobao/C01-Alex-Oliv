@@ -104,6 +104,12 @@ export default function Contact() {
             value="web@alexoliveras.cat"
             sub="Clave PGP disponible bajo petición"
           />
+          <CTA
+            href="https://www.linkedin.com/in/alex-oliveras-martinez"
+            label="LinkedIn"
+            value="Àlex Oliveras Martínez"
+            sub="Perfil profesional completo"
+          />
         </div>
 
         {/* Form */}
