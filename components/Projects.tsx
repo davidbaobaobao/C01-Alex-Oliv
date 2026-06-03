@@ -1,17 +1,20 @@
-import { supabase } from '@/lib/supabase'
+import { getSupabase } from '@/lib/supabase'
 import SectionHeader from './SectionHeader'
 import ProjectsClient from './ProjectsClient'
 
 export const revalidate = 60
 
 export default async function Projects() {
-  const { data } = await supabase
-    .from('showcase_projects')
-    .select('id, name, description, main_image, additional_images, sort_order')
-    .eq('visible', true)
-    .order('sort_order', { ascending: true })
+  const sb = getSupabase()
+  const { data } = sb
+    ? await sb
+        .from('showcase_projects')
+        .select('id, name, description, main_image, additional_images, sort_order')
+        .eq('visible', true)
+        .order('sort_order', { ascending: true })
+    : { data: null }
 
-  // Return empty array (not null) — the client renders a styled placeholder card
+  // Empty array → client renders the styled placeholder card
   const projects = data ?? []
 
   return (

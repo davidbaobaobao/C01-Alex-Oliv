@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase'
+import { getSupabase } from '@/lib/supabase'
 import SectionHeader from './SectionHeader'
 import EducationClient from './EducationClient'
 
@@ -20,14 +20,17 @@ const FALLBACK_EDUCATION = [
 ]
 
 export default async function Education() {
-  const { data, error } = await supabase
-    .from('faqs')
-    .select('question, answer')
-    .eq('client_id', process.env.NEXT_PUBLIC_CLIENT_ID)
-    .eq('visible', true)
-    .order('sort_order', { ascending: true })
+  const sb = getSupabase()
+  const { data } = sb
+    ? await sb
+        .from('faqs')
+        .select('question, answer')
+        .eq('client_id', process.env.NEXT_PUBLIC_CLIENT_ID)
+        .eq('visible', true)
+        .order('sort_order', { ascending: true })
+    : { data: null }
 
-  const education = (data && data.length > 0) ? data : FALLBACK_EDUCATION
+  const education = data && data.length > 0 ? data : FALLBACK_EDUCATION
 
   return (
     <section

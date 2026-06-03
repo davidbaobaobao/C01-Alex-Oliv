@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase'
+import { getSupabase } from '@/lib/supabase'
 import SectionHeader from './SectionHeader'
 import SkillsClient from './SkillsClient'
 
@@ -14,14 +14,17 @@ const FALLBACK_SKILLS = [
 ]
 
 export default async function Skills() {
-  const { data, error } = await supabase
-    .from('services')
-    .select('name, description, price_label, sort_order')
-    .eq('client_id', process.env.NEXT_PUBLIC_CLIENT_ID)
-    .eq('visible', true)
-    .order('sort_order', { ascending: true })
+  const sb = getSupabase()
+  const { data } = sb
+    ? await sb
+        .from('services')
+        .select('name, description, price_label, sort_order')
+        .eq('client_id', process.env.NEXT_PUBLIC_CLIENT_ID)
+        .eq('visible', true)
+        .order('sort_order', { ascending: true })
+    : { data: null }
 
-  const skills = (data && data.length > 0) ? data : FALLBACK_SKILLS
+  const skills = data && data.length > 0 ? data : FALLBACK_SKILLS
 
   return (
     <section id="skills" className="relative border-b border-black bg-[#FAFAFA]">
